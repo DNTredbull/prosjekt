@@ -1,0 +1,357 @@
+/* Grunnleggende reset og lyst tema */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    /* Velg en passende font */
+    background-color: #f8f9fa;
+    /* Lys grå bakgrunn */
+    color: #333;
+    /* Mørk tekstfarge */
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    /* Blå lenkefarge */
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Hjelpeklasse for container */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    /* Maks bredde */
+    margin: 0 auto;
+    /* Sentrerer containeren */
+}
+
+/* Header Styling */
+.site-header {
+    background-color: #ffffff;
+    /* Hvit bakgrunn for header */
+    padding: 10px 0;
+    border-bottom: 1px solid #e7e7e7;
+    /* En tynn linje under header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Subtil skygge */
+}
+
+.header-content {
+    display: flex;
+    /* Bruker flexbox for layout */
+    justify-content: space-between;
+    /* Plasserer logo til venstre, meny til høyre */
+    align-items: center;
+    /* Sentrerer elementene vertikalt */
+}
+
+.logo {
+    height: 50px;
+    /* Juster høyden på logoen etter behov */
+    display: block;
+    /* Forhindrer ekstra bunnmarg */
+}
+
+/* Bruk '>' for å kun velge den direkte underliggende ul (hovedmenyen) */
+.main-navigation>.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* Denne skal KUN gjelde hovedmenyen */
+    gap: 20px;
+    /* Gap mellom menyelementene */
+    justify-content: flex-end;
+    /* Plasserer menyen til høyre */
+}
+    
+
+
+/* Hovedmeny Styling */
+
+.main-navigation a {
+    display: block;
+    padding: 10px 5px;
+    color: #333;
+    /* Mørk tekstfarge for meny */
+    font-weight: bold;
+}
+
+.main-navigation a:hover {
+    color: #0056b3;
+    /* Mørkere blå ved hover */
+    text-decoration: none;
+}
+
+/* Hamburger Meny - Skjult som standard på større skjermer */
+.menu-toggle {
+    display: none;
+    /* Skjult som standard */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    display: block;
+    background-color: #333;
+    /* Farge på hamburger-strekene */
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+.hamburger::before {
+    transform: translateY(-8px);
+}
+
+.hamburger::after {
+    transform: translateY(5px);
+    /* Justert fra 8px for å få lik avstand */
+}
+/* --- Undermeny Styling (Desktop) --- */
+
+.main-navigation li {
+    position: relative;
+    /* Nødvendig for å posisjonere undermenyen */
+}
+
+.submenu {
+    display: none;
+    /* Skjult som standard */
+    position: absolute;
+    /* Posisjoneres relativt til forelder (li) */
+    left: 0;
+    top: 100%;
+    /* Rett under forelder-elementet */
+    background-color: #ffffff;
+    /* Hvit bakgrunn */
+    padding: 10px 0;
+    /* Litt luft over/under */
+    margin: 0;
+    list-style: none;
+    min-width: 180px;
+    /* Minimumsbredde for undermenyen */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Skygge */
+    border-top: 1px solid #e7e7e7;
+    z-index: 10;
+    /* Sikrer at den ligger over annet innhold */
+}
+
+.submenu li {
+    width: 100%;
+    /* Tar full bredde av .submenu */
+}
+
+.submenu a {
+    padding: 8px 15px;
+    /* Padding for undermeny-lenker */
+    color: #333;
+    display: block;
+    /* Gjør hele området klikkbart */
+    white-space: nowrap;
+    /* Forhindrer tekstbryting */
+    font-weight: normal;
+    /* Normal fontvekt for undermeny */
+}
+
+.submenu a:hover {
+    background-color: #f0f0f0;
+    /* Lys grå bakgrunn ved hover */
+    color: #0056b3;
+}
+
+/* Vis undermenyen når man hover over hovedelementet */
+.main-navigation li:hover>.submenu {
+    display: block;
+}
+
+/* Indikator for elementer med undermeny (valgfritt) */
+.has-submenu>a::after {
+    content: ' ▼';
+    /* Legger til en pil ned */
+    font-size: 0.7em;
+    /* Gjør pilen litt mindre */
+    display: inline-block;
+    margin-left: 5px;
+}
+
+/* Responsivt design - Media Query for mindre skjermer */
+@media (max-width: 768px) {
+
+    /* Styling for selve hamburger-knappen */
+    .menu-toggle {
+        display: block;
+        /* Viser hamburger-ikonet */
+        order: 1;
+        /* Plasserer ikonet til høyre hvis flexbox brukes */
+    }
+
+    /* Styling for hoved navigasjonslisten på mobil */
+    /* ENDRET VELGER HER: */
+    .main-navigation>.nav-menu {
+        display: none;
+        /* Skjuler den vanlige menyen */
+        position: absolute;
+        top: 71px;
+        /* Plassering under header (juster etter header-høyde) */
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        /* Hvit bakgrunn for mobilmeny */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        /* Stabler menyelementene vertikalt */
+        padding: 10px 0;
+        border-top: 1px solid #e7e7e7;
+        background-color: rgba(255, 0, 0, 0.2);
+            /* TEST: Lys rød bakgrunn */
+    }
+
+    /* Viser hovedmenyen når den er aktiv (via JS) */
+    /* ENDRET VELGER HER: */
+    .main-navigation>.nav-menu.active {
+        display: flex;
+    }
+
+    /* Styling for ALLE listeelementer (hoved+under) i mobilmeny */
+    .nav-menu li {
+        position: static;
+        /* Overstyrer relative for mobil */
+        width: 100%;
+        text-align: center;
+        /* Sentrerer hovedmeny-tekst (kan justeres) */
+    }
+
+    /* Styling for hovedmeny-lenker på mobil */
+    .main-navigation .nav-menu>li>a {
+        /* Mer spesifikk selector for hovedlenker */
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+        /* Skillelinje mellom elementer */
+    }
+
+    .main-navigation .nav-menu>li:last-child>a {
+        border-bottom: none;
+        /* Fjerner linje på siste hovedelement */
+    }
+
+
+    /* --- Undermeny Styling (Mobil) --- */
+    /* Nå kommer reglene spesifikt for undermenyene */
+
+    .submenu {
+        position: static;
+        /* Ikke absolutt posisjonert i mobil */
+        display: none;
+        /* Fortsatt skjult som standard */
+        width: 100%;
+        box-shadow: none;
+        /* Fjerner skygge */
+        padding: 0;
+        margin: 0;
+        background-color: #f8f8f8;
+        /* Litt annen bakgrunn for å skille */
+        border: none;
+        border-top: 1px solid #eee;
+        /* Linje over undermenyen */
+        /* border-bottom: 1px solid #eee; */
+        /* Kan legge til linje under også */
+    }
+
+    /* Viser undermenyen når aktiv (via JS) */
+    .submenu.active {
+        display: block;
+    }
+
+    .submenu li {
+        /* Ingen ekstra styling nødvendig her foreløpig */
+        /* text-align kan settes til left om ønskelig for undermeny */
+        text-align: left;
+    }
+
+    .submenu a {
+        padding: 10px 15px 10px 30px;
+        /* Innrykk for undermeny-lenker */
+        font-size: 0.9em;
+        /* Litt mindre skrift */
+        font-weight: normal;
+        border-bottom: 1px solid #eee;
+        /* Linjer mellom undermeny-elementer */
+        color: #555;
+        text-align: left;
+        /* Venstrejuster tekst i undermeny */
+        display: block;
+        /* Viktig for padding og klikkflate */
+    }
+
+    .submenu li:last-child a {
+        border-bottom: none;
+    }
+
+    /* Ikke vis desktop hover-effekten på mobil */
+    .main-navigation li:hover>.submenu {
+        display: none;
+    }
+
+    /* Vis kun når .active klassen er satt (via JS) */
+    /* Trenger egentlig ikke denne, .submenu.active håndterer visning */
+    /* .main-navigation li .submenu.active { */
+    /* display: block; */
+    /* } */
+
+    /* Indikator-pilen for mobil (pluss/kryss) */
+    .has-submenu>a::after {
+        content: ' +';
+        /* Pluss-tegn for å indikere utvidelse */
+        float: right;
+        /* Plasser til høyre */
+        margin-right: 15px;
+        font-size: 1.2em;
+        /* Gjør den litt større kanskje */
+        line-height: 1;
+        /* Justerer vertikal plassering om nødvendig */
+        transition: transform 0.3s ease;
+        /* Animasjon */
+    }
+
+    /* Roter pilen når undermenyen er åpen */
+    .has-submenu>a[aria-expanded="true"]::after {
+        transform: rotate(45deg);
+        /* Roter pluss til et kryss */
+    }
+
+    /* Animasjon for hamburger-ikonet når menyen er åpen (flyttet hit for oversikt) */
+    .menu-toggle[aria-expanded="true"] .hamburger {
+        background-color: transparent;
+        /* Midterste strek blir usynlig */
+    }
+
+    .menu-toggle[aria-expanded="true"] .hamburger::before {
+        transform: translateY(0) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] .hamburger::after {
+        transform: translateY(-3px) rotate(-45deg);
+        /* Justert for å sentrere krysset */
+    }
+
+
+
+/* Slutten på @media blokken */
+}
