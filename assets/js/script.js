@@ -1,94 +1,68 @@
 // Hent DOM-elementene vi trenger
 const menuToggle = document.querySelector('.menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
-const submenuToggles = document.querySelectorAll('.main-navigation .has-submenu > a');
-console.log('Script startet. Fant menuToggle:', menuToggle); // LOG 1
-console.log('Fant navMenu:', navMenu); // LOG 2
-console.log('Fant submenuToggles:', submenuToggles.length, 'stk', submenuToggles); // LOG 3
+const submenuToggles = document.querySelectorAll('.main-navigation .has-submenu > a'); // Kun de med undermeny
+console.log('Script startet (Forenklet). Fant menuToggle:', menuToggle);
+console.log('Fant navMenu:', navMenu);
+console.log('Fant submenuToggles:', submenuToggles.length, 'stk', submenuToggles);
 
-// Funksjon for å lukke alle åpne undermenyer
-const closeAllSubmenus = () => {
-    console.log('closeAllSubmenus kjører...'); // LOG 4
-    const openSubmenus = document.querySelectorAll('.main-navigation .submenu.active');
-    openSubmenus.forEach(submenu => {
-        submenu.classList.remove('active');
-        const parentLink = submenu.previousElementSibling;
-        if (parentLink && parentLink.tagName === 'A') {
-            parentLink.setAttribute('aria-expanded', 'false');
-        }
-    });
-};
-
-// Sjekk om hovedmeny-elementene finnes
+// Hamburger-meny logikk
 if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', () => {
-        console.log('Hamburger ikon klikket!'); // LOG 5
+        console.log('Hamburger ikon klikket!');
         const isExpanded = navMenu.classList.toggle('active');
         menuToggle.setAttribute('aria-expanded', isExpanded);
-        console.log('Hovedmeny .active satt til:', isExpanded); // LOG 6
+        console.log('Hovedmeny .active satt til:', isExpanded);
+
+        // Nullstill undermenyer når hovedmeny lukkes
         if (!isExpanded) {
-            closeAllSubmenus();
+            submenuToggles.forEach(toggle => {
+                const submenu = toggle.nextElementSibling;
+                if (submenu && submenu.classList.contains('submenu')) {
+                    submenu.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
         }
     });
 } else {
     console.error("Kunne ikke finne menu-toggle eller nav-menu elementene.");
 }
 
-// Legg til klikk-håndtering for undermeny-toggles (lenkene)
-if (submenuToggles.length > 0) { // Bare legg til lyttere hvis vi fant noen toggles
+// KUN undermeny-logikk (forenklet)
+if (submenuToggles.length > 0) {
     submenuToggles.forEach(toggle => {
+        // Viktig: 'toggle' her er kun <a> for 'Kategorier' og 'Film'
         toggle.addEventListener('click', (event) => {
-            console.log('Submenu toggle klikket:', toggle); // LOG 7
+            console.log('Submenu toggle klikket:', toggle.textContent); // Viser teksten til den som ble klikket
 
             const isMobileView = window.innerWidth <= 768;
-            console.log('isMobileView:', isMobileView); // LOG 8
-            console.log('navMenu har .active:', navMenu.classList.contains('active')); // LOG 9
+            console.log('isMobileView:', isMobileView);
+            console.log('navMenu har .active:', navMenu.classList.contains('active'));
 
-            // KUN kjør hvis mobilmeny er åpen
             if (isMobileView && navMenu.classList.contains('active')) {
-                console.log('BETINGELSE OK: Kjører submenu toggle logikk.'); // LOG 10
-                event.preventDefault();
+                console.log('BETINGELSE OK.');
+                event.preventDefault(); // Forhindre at # lenken følges
 
                 const submenu = toggle.nextElementSibling;
-                console.log('Forsøker å finne submenu etter:', toggle, 'Fant:', submenu); // LOG 11
-                const currentlyExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                console.log('currentlyExpanded:', currentlyExpanded); // LOG 12
-
-                if (!currentlyExpanded) {
-                    closeAllSubmenus(); // closeAllSubmenus vil logge selv (LOG 4)
-                }
+                console.log('Forsøker å finne submenu etter:', toggle.textContent, 'Fant:', submenu);
 
                 if (submenu && submenu.classList.contains('submenu')) {
-                    console.log('Fant gyldig submenu. Toggler .active...'); // LOG 13
-                    submenu.classList.toggle('active');
-                    toggle.setAttribute('aria-expanded', !currentlyExpanded);
-                    console.log('Status etter toggle: submenu har .active:', submenu.classList.contains('active'), 'link aria-expanded:', toggle.getAttribute('aria-expanded')); // LOG 14
+                    console.log('Toggling active for:', toggle.textContent);
+                    submenu.classList.toggle('active'); // Bare toggle den aktuelle
+                    const isOpen = submenu.classList.contains('active');
+                    toggle.setAttribute('aria-expanded', isOpen);
+                    console.log(toggle.textContent, 'status: active=', isOpen, 'aria=', isOpen);
                 } else {
-                    console.error("FEIL: Fant ikke .submenu elementet rett etter:", toggle); // LOG 15
+                    console.error("FEIL: Fant ikke .submenu elementet rett etter:", toggle);
                 }
             } else {
-                console.log('BETINGELSE IKKE MØTT: Gjør ingenting.'); // LOG 16
+                 console.log('BETINGELSE IKKE MØTT.');
             }
         });
     });
 } else {
-    console.warn("ADVARSEL: Fant ingen elementer for submenuToggles å legge lytter til."); // LOG 17
+    console.warn("ADVARSEL: Fant ingen elementer for submenuToggles.");
 }
 
-
-// Valgfritt: Lukk undermenyer hvis brukeren klikker utenfor menyen
-document.addEventListener('click', (event) => {
-    if (navMenu.classList.contains('active')) {
-        const isClickInsideMenu = navMenu.contains(event.target);
-        const isClickOnToggle = menuToggle.contains(event.target);
-
-        if (!isClickInsideMenu && !isClickOnToggle) {
-            console.log('Klikk utenfor menyen oppdaget. Lukker menyen.'); // LOG 18
-            navMenu.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-            closeAllSubmenus();
-        }
-    }
-});
-
-console.log('Script ferdig lastet.'); // LOG 19
+console.log('Script ferdig lastet (Forenklet).');
