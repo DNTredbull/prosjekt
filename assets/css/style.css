@@ -300,12 +300,20 @@ img {
         border: none;
         border-top: 1px solid #eee;
         /* Linje over */
+        max-height: 0;
+        /* Skjult som standard */
+            overflow: hidden;
+        /* Forhindrer at innholdet vises utenfor */
+            transition: max-height 0.3s ease;
+        /* Animasjon for åpning/lukking */
     }
 
     /* Vis mobil undermenyen når aktiv (via JS) */
     .submenu.active {
         display: block !important;
         /* La til !important midlertidig for testing */
+        max-height: 1000px;
+            /* Pass på at dette er høyt nok for det lengste innholdet */
     }
 
     /* Styling for listeelementer inne i mobil undermeny */
@@ -371,6 +379,21 @@ img {
         transform: translateY(-3px) rotate(-45deg);
     }
 
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1e1e1e;
+                color: #eee;
+            }
+    
+            .main-navigation a,
+            .submenu a {
+                color: #ccc;
+            }
+    
+            .submenu {
+                background-color: #2a2a2a;
+            }
+        }
 }
 
 /* Slutten på @media blokken */
