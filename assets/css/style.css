@@ -319,7 +319,6 @@ img {
     /* Vis mobil undermenyen når aktiv (via JS) */
         .submenu.active {
         display: block;
-        max-height: 1000px;
             /* Pass på at dette er høyt nok for det lengste innholdet */
     }
         /* Sørg for at nested undermenyer også får plass når aktive */
