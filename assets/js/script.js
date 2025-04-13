@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const submenuToggleLinks = document.querySelectorAll('.main-navigation .has-submenu > a'); // Alle <a> som skal åpne en undermeny
 
     // --- Funksjon for å lukke ALLE åpne undermenyer (alle nivåer) ---
+    // Brukes av hamburger og klikk utenfor
     const closeAllSubmenus = () => {
         const openSubmenus = document.querySelectorAll('.main-navigation .submenu.active');
         openSubmenus.forEach(submenu => {
@@ -29,9 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeAllSubmenus();
             }
         });
-    } else {
-        // Bare logg hvis elementer mangler, ingen krise hvis f.eks. menuToggle ikke finnes på desktop
-        // console.error("Kunne ikke finne .menu-toggle eller .nav-menu elementene.");
     }
 
     // --- Undermeny Toggle ved Klikk (Alle nivåer, Desktop & Mobil) ---
@@ -44,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetSubmenu = toggleLink.nextElementSibling; // UL.submenu som skal åpnes/lukkes
 
                 if (!parentLi || !targetSubmenu || !targetSubmenu.classList.contains('submenu')) {
-                    console.error("Feil i struktur rundt:", toggleLink);
+                    // console.error("Feil i struktur rundt:", toggleLink); // Kan aktiveres for feilsøk
                     return; // Avslutt hvis HTML-struktur er uventet
                 }
 
@@ -73,27 +71,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // --- Toggle den aktuelle undermenyen ---
                 targetSubmenu.classList.toggle('active');
-                toggleLink.setAttribute('aria-expanded', !isTargetCurrentlyExpanded); // Sett motsatt av hva den var
+                // Sett aria basert på den NYE statusen etter toggle
+                toggleLink.setAttribute('aria-expanded', targetSubmenu.classList.contains('active'));
+
             });
         });
-    } else {
-        // console.warn("Fant ingen undermeny-lenker (.has-submenu > a).");
     }
 
     // --- Klikk Utenfor Meny Logikk ---
     document.addEventListener('click', (event) => {
         const mainNavigation = document.querySelector('.main-navigation');
-        const isClickInsideNav = mainNavigation ? mainNavigation.contains(event.target) : false;
+        // Sjekk om klikket var på hamburger-ikonet (for mobil)
+        // Må sjekke om menuToggle eksisterer først
+        const isClickOnMenuToggle = menuToggle ? menuToggle.contains(event.target) : false;
 
-        // Hvis klikket var utenfor hele navigasjonsområdet
-        if (!isClickInsideNav) {
-            // Lukk ALLE åpne undermenyer
+        // Hvis klikket er UTENFOR navigasjonen (.main-navigation) OG UTENFOR hamburger-ikonet
+        if (mainNavigation && !mainNavigation.contains(event.target) && !isClickOnMenuToggle) {
+
+            // Lukk ALLE åpne undermenyer (både desktop og mobil)
             closeAllSubmenus();
 
             // Lukk mobilmenyen HVIS den er åpen
             if (navMenu && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+                 navMenu.classList.remove('active');
+                 if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
             }
         }
     });
