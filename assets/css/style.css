@@ -270,40 +270,45 @@ img {
         border-bottom: none;
     }
 
-    /* Stil for ALLE undermenyer (Nivå 2 og 3) på mobil */
-    .submenu {
-        /* Overstyr desktop absolute */
-        position: static;
-        /* Skjult som standard */
-        display: none;
-        /* Ingen animasjon (max-height fjernet) */
+         /* Stil for selve undermeny-listen på mobil */
+         .submenu {
+             position: static;
+             /* display: none; <-- FJERN denne */
+             width: 100%;
+             box-shadow: none;
+             padding: 0;
+             margin: 0;
+             background-color: #f8f8f8;
+             border: none;
+             border-top: 1px solid #eee;
+             /* Tilbake til max-height metoden: */
+             max-height: 0;
+             overflow: hidden;
+             transition: max-height 0.3s ease-in-out;
+             /* Juster gjerne tid/easing */
+         }
 
-        /* Generell mobil styling */
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        margin: 0;
-        background-color: #f8f8f8;
-        /* Lys grå for nivå 2 */
-        border: none;
-        border-top: 1px solid #eee;
-        z-index: auto;
-        /* Trenger ikke høy z-index */
-    }
+  /* Vis mobil undermenyen når aktiv (via JS) */
+  .submenu.active {
+      /* display: block; <-- FJERN denne */
+      max-height: 1000px;
+      /* Tilbake til max-height */
+  }
 
-    /* Vis ALLE aktive undermenyer (Nivå 2 og 3) på mobil */
-    .submenu.active {
-        display: block;
-        /* Ingen max-height her heller */
-    }
-
-    /* Stil for NESTEDE undermenyer (Nivå 3) på mobil */
-    .submenu .submenu {
-        background-color: #f0f0f0;
-        /* Enda lysere grå for nivå 3 */
-        border-top: 1px dotted #ccc;
-        /* Annen border? */
-    }
+        /* Stil for NESTEDE undermenyer (Nivå 3) på mobil */
+        .submenu .submenu {
+            /* Base style for L3 */
+            background-color: #f0f0f0;
+            border-top: 1px dotted #ccc;
+            /* max-height: 0; arves */
+            /* overflow: hidden; arves */
+            /* transition: arves */
+        }
+                /* Aktiv stil for L3 (trenger ikke display:block her heller) */
+                .submenu .submenu.active {
+                    max-height: 1000px;
+                    /* Samme prinsipp */
+                }
 
     /* Styling for ALLE listeelementer INNE I undermenyer (Nivå 2 og 3) */
     .submenu li {
