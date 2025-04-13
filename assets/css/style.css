@@ -296,24 +296,17 @@ img {
 
     /* Stil for selve undermeny-listen på mobil */
     .submenu {
-        /* Trenger ikke .main-navigation > .nav-menu foran her, da .submenu er unik nok */
         position: static;
-        /* Legger seg i flyten */
-        width: 100%;
-        box-shadow: none;
-        padding: 0;
-        margin: 0;
-        background-color: #f8f8f8;
-        /* Litt annen bakgrunn */
-        border: none;
-        border-top: 1px solid #eee;
-        /* Linje over */
-        max-height: 0;
-        /* Skjult som standard */
-            overflow: hidden;
-        /* Forhindrer at innholdet vises utenfor */
-            transition: max-height 0.3s ease;
-        /* Animasjon for åpning/lukking */
+            display: none;
+            /* <--- RIKTIG: Skjul med display */
+            width: 100%;
+            box-shadow: none;
+            padding: 0;
+            margin: 0;
+            background-color: #f8f8f8;
+            border: none;
+            border-top: 1px solid #eee;
+            /* Fjernet max-height, overflow, transition */
     }
 
     /* Vis mobil undermenyen når aktiv (via JS) */
