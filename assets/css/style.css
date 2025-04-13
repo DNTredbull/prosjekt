@@ -1,207 +1,183 @@
-/* Grunnleggende reset og lyst tema */
+/* ================================== */
+/* Grunnleggende reset og lyst tema  */
+/* ================================== */
 body {
     margin: 0;
     font-family: sans-serif;
-    /* Velg en passende font */
     background-color: #f8f9fa;
-    /* Lys grå bakgrunn */
     color: #333;
-    /* Mørk tekstfarge */
     line-height: 1.6;
 }
 
 a {
     text-decoration: none;
     color: #007bff;
-    /* Blå lenkefarge */
 }
 
 a:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    /* Kan fjernes for renere linker */
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
-    /* Forhindrer ekstra bunnmarg på bilder generelt */
 }
 
-/* Hjelpeklasse for container */
+/* ================================== */
+/* Generell Layout                   */
+/* ================================== */
 .container {
     width: 90%;
     max-width: 1100px;
-    /* Maks bredde */
     margin: 0 auto;
-    /* Sentrerer containeren */
 }
 
-/* Header Styling */
+/* ================================== */
+/* Header Styling                    */
+/* ================================== */
 .site-header {
     background-color: #ffffff;
-    /* Hvit bakgrunn for header */
     padding: 10px 0;
     border-bottom: 1px solid #e7e7e7;
-    /* En tynn linje under header */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    /* Subtil skygge */
     position: relative;
-    /* Kan være nyttig for z-index hvis nødvendig */
     z-index: 1000;
-    /* Høyere enn mobilmeny når den *ikke* er fixed */
+    /* Høyere enn undermenyer */
 }
 
 .header-content {
     display: flex;
-    /* Bruker flexbox for layout */
     justify-content: space-between;
-    /* Plasserer logo til venstre, meny til høyre */
     align-items: center;
-    /* Sentrerer elementene vertikalt */
 }
 
 .logo {
     height: 50px;
-    /* Juster høyden på logoen etter behov */
-    /* display: block; satt globalt for img */
 }
 
-/* Desktop Hovedmeny Liste Styling */
+/* ================================== */
+/* Navigasjon Generelt               */
+/* ================================== */
+.main-navigation {
+    /* Ingen spesifikk stil her nødvendigvis */
+}
+
+/* Alle lenker i navigasjonen */
+.main-navigation a {
+    display: block;
+    padding: 10px 5px;
+    /* Standard padding */
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.main-navigation a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Liste-elementer i navigasjonen */
+.main-navigation li {
+    position: relative;
+    /* Viktig for absolutt posisjonering av undermenyer */
+}
+
+/* ================================== */
+/* Desktop Navigasjon (> 768px)     */
+/* ================================== */
+
+/* Hovedmeny-listen (Nivå 1 UL) */
 .main-navigation>.nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    /* Denne skal KUN gjelde hovedmenyen */
+    /* Horisontal layout */
     gap: 20px;
-    /* Gap mellom menyelementene */
     justify-content: flex-end;
-    /* Plasserer menyen til høyre */
     align-items: center;
-    /* Sikrer vertikal sentrering av meny-elementer */
 }
 
-/* Desktop og generell lenke-styling i hovedmeny */
-.main-navigation a {
-    display: block;
-    /* Viktig for padding */
-    padding: 10px 5px;
-    color: #333;
-    /* Mørk tekstfarge for meny */
-    font-weight: bold;
-    text-decoration: none;
-    /* Fjern underline fra lenker i nav */
-}
-
-.main-navigation a:hover {
-    color: #0056b3;
-    /* Mørkere blå ved hover */
-    text-decoration: none;
-    /* Sikrer ingen underline ved hover */
-}
-
-/* Hamburger Meny Ikon - Skjult som standard på større skjermer */
+/* Skjul hamburger på desktop */
 .menu-toggle {
     display: none;
-    /* Skjult som standard */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
-    /* Over header, men under menyen når den er fixed? */
 }
 
-.hamburger,
-.hamburger::before,
-.hamburger::after {
-    content: '';
-    display: block;
-    background-color: #333;
-    /* Farge på hamburger-strekene */
-    height: 3px;
-    width: 25px;
-    border-radius: 3px;
-    transition: all 0.3s ease-in-out;
-}
-
-.hamburger::before {
-    transform: translateY(-8px);
-}
-
-.hamburger::after {
-    transform: translateY(5px);
-    /* Justert fra 8px for å få lik avstand */
-}
-
-/* --- Desktop Undermeny Styling --- */
-
-.main-navigation li {
-    position: relative;
-    /* Nødvendig for å posisjonere undermenyen */
-}
-
+/* Alle undermenyer (både nivå 2 og 3) - Skjult som standard */
 .submenu {
     display: none;
-    /* Skjult som standard */
     position: absolute;
-    /* Posisjoneres relativt til forelder (li) */
+    /* Posisjoneres ift. forelder LI */
     left: 0;
     top: 100%;
-    /* Rett under forelder-elementet */
+    /* Rett under forelder */
     background-color: #ffffff;
-    /* Hvit bakgrunn */
     padding: 10px 0;
-    /* Litt luft over/under */
     margin: 0;
+    /* Nullstill margin */
     list-style: none;
-    min-width: 180px;
-    /* Minimumsbredde for undermenyen */
+    min-width: 200px;
+    /* Litt bredere kanskje */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Skygge */
-    border-top: 1px solid #e7e7e7;
-    z-index: 10;
-    /* Sikrer at den ligger over annet innhold */
+    border: 1px solid #e7e7e7;
+    /* Tynn kant rundt */
+    z-index: 1010;
+    /* Over header */
 }
 
+/* Vises når .active klassen legges til (via JS-klikk) */
+.submenu.active {
+    display: block;
+}
+
+/* Styling for elementer inne i alle undermenyer */
 .submenu li {
     width: 100%;
-    /* Tar full bredde av .submenu */
     position: static;
-    /* Sørger for at denne ikke er relativ */
+    /* Sørger for at LI ikke forstyrrer absolutt posisjonering */
 }
 
+/* Styling for lenker inne i alle undermenyer */
 .submenu a {
     padding: 8px 15px;
-    /* Padding for undermeny-lenker */
-    color: #333;
-    display: block;
-    /* Gjør hele området klikkbart */
     white-space: nowrap;
-    /* Forhindrer tekstbryting */
     font-weight: normal;
-    /* Normal fontvekt for undermeny */
+    color: #333;
+    /* Sørg for at fargen er riktig */
 }
 
 .submenu a:hover {
     background-color: #f0f0f0;
-    /* Lys grå bakgrunn ved hover */
     color: #0056b3;
 }
 
-/* Vis desktop undermenyen når man hover over hovedelementet */
-.main-navigation li:hover>.submenu {
-    display: block;
-}
+/* Spesifikk justering for nivå 3 undermeny på desktop */
+/* (Åpnes fortsatt under nivå 2 som standard med koden over) */
+/* Hvis du VIL ha fly-out til høyre for nivå 3 på desktop: */
+/*
+.submenu .submenu {
+    left: 100%;
+    top: -1px; /* Justering for border */
+/* margin-left: 1px; /* Litt luft */
+/* }
+*/
 
-/* Desktop indikator for elementer med undermeny */
+/* Desktop indikator-pil (standard: ned) */
 .has-submenu>a::after {
     content: ' ▼';
-    /* Legger til en pil ned */
     font-size: 0.7em;
-    /* Gjør pilen litt mindre */
     display: inline-block;
     margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+/* Roter pil på desktop når undermenyen er åpen */
+.has-submenu>a[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+    /* Pil opp */
 }
 /* Nested undermeny (desktop) åpner til høyre */
 .submenu .has-submenu {
@@ -209,14 +185,14 @@ img {
 }
 
 .submenu .submenu {
-    position: absolute;
-    left: 100%;
     top: 0;
+    left: 100%;
+    margin-left: 2px;
+    position: absolute;
     display: none;
     background-color: #fff;
-    min-width: 180px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid #eee;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     z-index: 999;
 }
 
@@ -224,8 +200,9 @@ img {
     display: block;
 }
 
+
 /* ============================================== */
-/* Responsivt design - Media Query for mindre skjermer */
+/* Mobil Navigasjon (<= 768px)                  */
 /* ============================================== */
 @media (max-width: 768px) {
 
@@ -240,102 +217,115 @@ img {
     .menu-toggle {
         display: block;
         order: 1;
-        /* Plasser til høyre */
+        background: none;
+        /* Sørg for at disse er her */
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 1001;
+        /* Over header innhold */
+    }
+
+    /* Hamburger-strekene */
+    .hamburger,
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        display: block;
+        background-color: #333;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger::before {
+        transform: translateY(-8px);
+    }
+
+    .hamburger::after {
+        transform: translateY(5px);
     }
 
     /* Skjul hovedmenyen som standard */
     .main-navigation>.nav-menu {
         display: none;
-        /* Andre egenskaper settes når den blir aktiv */
     }
 
-    /* Stil for den ÅPNE mobilmenyen */
+    /* Stil for den ÅPNE mobilmeny-containeren */
     .main-navigation>.nav-menu.active {
         display: flex;
-        /* Viser menyen */
         flex-direction: column;
-        /* Stabler elementer */
         position: fixed;
-        /* Legger seg over alt */
         top: 0;
-        /* Dekker hele høyden */
         left: 0;
         right: 0;
         bottom: 0;
         background-color: #ffffff;
-        /* Hvit bakgrunn */
         padding-top: 70px;
-        /* Luft over innholdet (juster etter header) */
+        /* Juster etter headerhøyde */
         overflow-y: auto;
-        /* Scroll hvis innholdet er for langt */
         z-index: 999;
-        /* Legger seg over header */
-        border-top: none;
-        /* Fjerner eventuell top-border fra desktop */
-        box-shadow: none;
-        /* Fjerner eventuell skygge fra desktop */
+        /* Under header? Eller over? Juster etter behov */
     }
 
-    /* Styling for ALLE listeelementer (hoved+under) i åpen mobilmeny */
-    .main-navigation>.nav-menu li {
-        /* Bruker > for å unngå å style .submenu li for mye her */
+    /* Styling for ALLE listeelementer (Nivå 1, 2, 3) i åpen mobilmeny */
+    .main-navigation>.nav-menu li,
+    .main-navigation>.nav-menu .submenu li {
+        /* Sørg for at submenu li også får dette */
         position: static;
-        /* Overstyrer relativ posisjon */
+        /* Viktig for å unngå absolutt posisjonering */
         width: 100%;
         text-align: center;
-        /* Sentrerer hovedmeny-tekst */
+        /* Sentrert som standard */
     }
 
-    /* Styling for hovedmeny-lenker på mobil */
-    /* Bruker mer spesifikk velger for å unngå å treffe undermeny-lenker for hardt */
+    /* Styling for hovedmeny-lenker (Nivå 1) på mobil */
     .main-navigation>.nav-menu>li>a {
         padding: 15px 20px;
-        /* Mer padding sideveis også? */
         border-bottom: 1px solid #f0f0f0;
-        /* Fjernet test-bakgrunn */
     }
 
     /* Fjern border på siste hovedmeny-element */
     .main-navigation>.nav-menu>li:last-of-type>a {
-        /* Mer robust enn last-child hvis det ikke er li */
         border-bottom: none;
     }
 
-
-    /* --- Mobil Undermeny Styling --- */
-
-    /* Stil for selve undermeny-listen på mobil */
+    /* Stil for ALLE undermenyer (Nivå 2 og 3) på mobil */
     .submenu {
-        /* Trenger ikke .main-navigation > .nav-menu foran her, da .submenu er unik nok */
+        /* Denne gjelder for alle .submenu inne i @media */
         position: static;
-        /* Legger seg i flyten */
+        /* Overstyrer desktop 'absolute' */
         display: none;
         /* Skjult som standard */
         width: 100%;
+        /* Full bredde */
         box-shadow: none;
+        /* Ingen skygge */
         padding: 0;
+        /* Ingen padding på selve UL */
         margin: 0;
+        /* Ingen margin på selve UL */
         background-color: #f8f8f8;
         /* Litt annen bakgrunn */
         border: none;
+        /* Ingen border */
         border-top: 1px solid #eee;
         /* Linje over */
     }
 
-    /* Vis mobil undermenyen når aktiv (via JS) */
+    /* Viser ALLE aktive undermenyer (Nivå 2 og 3) på mobil */
     .submenu.active {
-        display: block !important;
-        /* La til !important midlertidig for testing */
+        display: block;
     }
 
-    /* Styling for listeelementer inne i mobil undermeny */
+    /* Styling for listeelementer INNE I undermenyer (Nivå 2 og 3) */
     .submenu li {
-        width: 100%;
         text-align: left;
-        /* Venstrejuster undermeny */
+        /* Venstrejuster tekst i undermenyer */
     }
 
-    /* Styling for lenker inne i mobil undermeny */
+    /* Styling for lenker INNE I ALLE undermenyer (Nivå 2 og 3) */
     .submenu a {
         padding: 10px 15px 10px 30px;
         /* Innrykk */
@@ -344,41 +334,53 @@ img {
         border-bottom: 1px solid #eee;
         color: #555;
         text-align: left;
-        display: block;
         white-space: normal;
-        /* La tekst bryte på mobil */
-        /* Fjernet test-bakgrunn */
+        /* La tekst bryte */
     }
 
-    /* Fjern border på siste undermeny-element */
-    .submenu li:last-child a {
+    /* Styling for lenker INNE I NESTEDE undermenyer (Nivå 3) - Mer innrykk */
+    .submenu .submenu a {
+        padding-left: 45px;
+        /* Ekstra innrykk for nivå 3 */
+        background-color: #f0f0f0;
+        /* Enda en annen bakgrunn? */
+        font-size: 0.85em;
+        /* Enda mindre skrift? */
+    }
+
+    /* Fjern border på siste element i ALLE undermenyer */
+    .submenu li:last-child>a {
+        /* Bruker > for å unngå feil hvis det er noe annet enn a inni li */
         border-bottom: none;
     }
 
-    /* Ikke vis desktop hover-effekten på mobil */
-    .main-navigation li:hover>.submenu {
-        display: none;
+    /* Deaktiver desktop hover-effekt på mobil */
+    .main-navigation li:hover>.submenu,
+    .submenu .has-submenu:hover>.submenu {
+        display: none !important;
+        /* Sørg for at hover aldri åpner noe på mobil */
     }
 
-    /* Mobil indikator-pil */
+    /* Mobil indikator-pil (bruker ::after fra desktop, men endrer innhold) */
     .has-submenu>a::after {
         content: ' +';
+        /* Endre til Pluss */
         float: right;
         margin-right: 20px;
-        /* Litt mer luft? */
         font-size: 1.2em;
         line-height: 1;
-        /* Juster for vertikal sentrering om nødvendig */
-        transition: transform 0.3s ease;
+        /* Kan trenge justering for vertikal sentrering */
+        transform: none;
+        /* Nullstill rotasjon fra desktop */
     }
 
-    /* Roter pilen når undermenyen er åpen */
+    /* Roter pilen når undermenyen er åpen på mobil */
     .has-submenu>a[aria-expanded="true"]::after {
         transform: rotate(45deg);
         /* Roter pluss til et kryss */
     }
 
-    /* Animasjon for hamburger-ikonet når menyen er åpen */
+    /* Animasjon for hamburger-ikonet når mobilmenyen er åpen */
     .menu-toggle[aria-expanded="true"] .hamburger {
         background-color: transparent;
     }
@@ -390,27 +392,75 @@ img {
     .menu-toggle[aria-expanded="true"] .hamburger::after {
         transform: translateY(-3px) rotate(-45deg);
     }
-        /* Mobil: nested undermenyer må vises naturlig under hverandre */
-        .submenu .has-submenu {
-            position: static;
-        }
-    
-        .submenu .submenu {
-            position: static;
-            display: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding-left: 10px;
-            /* valgfritt for innrykk */
-            background-color: #f0f0f0;
-        }
-    
-        .submenu .submenu.active {
-            display: block;
-            max-height: 1000px;
+
+    /* Dark mode (valgfritt) - Bør kanskje flyttes ut av max-width media query? */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #1e1e1e;
+            color: #eee;
         }
 
+        .site-header {
+            background-color: #2a2a2a;
+            border-bottom-color: #444;
+        }
+
+        .main-navigation a,
+        .submenu a {
+            color: #ccc;
+        }
+
+        .main-navigation a:hover {
+            color: #fff;
+        }
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after {
+            background-color: #ccc;
+        }
+
+        .submenu {
+            background-color: #333;
+            border-top-color: #444;
+        }
+
+        .submenu a {
+            color: #bbb;
+            border-bottom-color: #444;
+        }
+
+        .submenu a:hover {
+            background-color: #444;
+            color: #fff;
+        }
+
+        .submenu .submenu a {
+            background-color: #3a3a3a;
+        }
+
+        /* Mørkere nivå 3 */
+        .main-navigation>.nav-menu.active {
+            background-color: #2a2a2a;
+        }
+
+        .main-navigation>.nav-menu>li>a {
+            border-bottom-color: #444;
+        }
+    }
+/* Mobil: nested undermenyer må vises naturlig under hverandre */
+.submenu .submenu {
+    position: static;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
 }
 
-/* Slutten på @media blokken */
+/* Når aktiv, vis nested undermeny på mobil */
+.submenu .submenu.active {
+    display: block;
+    max-height: 1000px;
+}
+}
+
+/* Slutten på @media (max-width: 768px) blokken */
