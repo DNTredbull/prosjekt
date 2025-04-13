@@ -203,6 +203,26 @@ img {
     display: inline-block;
     margin-left: 5px;
 }
+/* Nested undermeny (desktop) åpner til høyre */
+.submenu .has-submenu {
+    position: relative;
+}
+
+.submenu .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    display: none;
+    background-color: #fff;
+    min-width: 180px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    z-index: 999;
+}
+
+.submenu .has-submenu:hover>.submenu {
+    display: block;
+}
 
 /* ============================================== */
 /* Responsivt design - Media Query for mindre skjermer */
@@ -370,6 +390,26 @@ img {
     .menu-toggle[aria-expanded="true"] .hamburger::after {
         transform: translateY(-3px) rotate(-45deg);
     }
+        /* Mobil: nested undermenyer må vises naturlig under hverandre */
+        .submenu .has-submenu {
+            position: static;
+        }
+    
+        .submenu .submenu {
+            position: static;
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding-left: 10px;
+            /* valgfritt for innrykk */
+            background-color: #f0f0f0;
+        }
+    
+        .submenu .submenu.active {
+            display: block;
+            max-height: 1000px;
+        }
 
 }
 
